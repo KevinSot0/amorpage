@@ -57,8 +57,8 @@
   <h1></h1>
   <div class="gallery">
     <video id="video1" alt="Video 1"></video>
-    <img id="image" src="image1.jpg" alt="Imagen 1" style="display: none;">
     <video id="video2" alt="Video 2" style="display: none;"></video>
+    <img id="image" src="image1.jpg" alt="Imagen 1" style="display: none;">
   </div>
 
   <button class="button-prev" onclick="previousImage()">‹</button>
@@ -95,22 +95,22 @@
         video1.src = videoSrc;
         video1.play();
         video1.style.display = "block";
+        video2.style.display = "none";
         image.style.display = "none";
-        video2.style.display = "none";
-      } else if (imageNumber <= totalImages) {
-        image.src = `image${imageNumber - 1}.jpg`;
-        image.style.display = "block";
-        video1.style.display = "none";
-        video2.style.display = "none";
-      } else if (imageNumber == totalImages + 1) {
+      } else if (imageNumber == 2) {
         const videoSrc = "video2.mp4";
         video2.src = "";
         video2.srcObject = null;
         video2.src = videoSrc;
         video2.play();
-        image.style.display = "none";
         video1.style.display = "none";
         video2.style.display = "block";
+        image.style.display = "none";
+      } else {
+        image.src = `image${imageNumber - 2}.jpg`;
+        image.style.display = "block";
+        video1.style.display = "none";
+        video2.style.display = "none";
       }
     }
 
