@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: url("fondo.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .gallery img, .gallery video {
+      width: 50vw;
+      height: 90vh;
+      object-fit: cover;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+    }
+
+    .button-prev, .button-next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      background-color: rgba(214, 183, 3, 0.5);
+      color: #383636;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .button-prev:hover, .button-next:hover {
+      opacity: 0.8;
+    }
+
+    .button-prev {
+      left: 10px;
+    }
+
+    .button-next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1></h1>
+  <div class="gallery">
+    <video id="video1" alt="Video 1"></video>
+    <img id="image" src="image1.jpg" alt="Imagen 1" style="display: none;">
+    <video id="video2" alt="Video 2" style="display: none;"></video>
+  </div>
+
+  <button class="button-prev" onclick="previousImage()">‹</button>
+  <button class="button-next" onclick="nextImage()">›</button>
+
+  <script>
+    let currentImage = 1;
+    let totalImages = 22;
+    let totalVideos = 2;
+
+    function previousImage() {
+      if (currentImage > 1) {
+        currentImage--;
+        changeImage(currentImage);
+      }
+    }
+
+    function nextImage() {
+      if (currentImage < totalImages + totalVideos) {
+        currentImage++;
+        changeImage(currentImage);
+      }
+    }
+
+    function changeImage(imageNumber) {
+      const image = document.getElementById("image");
+      const video1 = document.getElementById("video1");
+      const video2 = document.getElementById("video2");
+
+      if (imageNumber == 1) {
+        const videoSrc = "video1.mp4";
+        video1.src = "";
+        video1.srcObject = null;
+        video1.src = videoSrc;
+        video1.play();
+        video1.style.display = "block";
+        image.style.display = "none";
+        video2.style.display = "none";
+      } else if (imageNumber <= totalImages) {
+        image.src = `image${imageNumber - 1}.jpg`;
+        image.style.display = "block";
+        video1.style.display = "none";
+        video2.style.display = "none";
+      } else if (imageNumber == totalImages + 1) {
+        const videoSrc = "video2.mp4";
+        video2.src = "";
+        video2.srcObject = null;
+        video2.src = videoSrc;
+        video2.play();
+        image.style.display = "none";
+        video1.style.display = "none";
+        video2.style.display = "block";
+      }
+    }
+
+    // Inicializar la galería con el primer video
+    changeImage(1);
+  </script>
+</body>
+</html>
